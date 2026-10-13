@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Traders | Brand Bearing Store</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --accent-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--card-bg);
+            padding: 0.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 55px; 
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            margin-left: 2rem;
+            user-select: none;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            padding: 4rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 350px;
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #475569;
+        }
+
+        /* Search, Brand Selection and Filter Section */
+        .controls-container {
+            padding: 2rem 5% 0 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .brand-select {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            background-color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-bar:focus, .brand-select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background-color: #e2e8f0;
+            color: var(--secondary-color);
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Products Section */
+        .container {
+            padding: 2rem 5% 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 170px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .product-item-img {
+            max-width: 100%;
+            max-height: 110px;
+            object-fit: contain;
+        }
+
+        .brand-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .bearing-tag {
+            position: absolute;
+            bottom: 8px;
+            right: 10px;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            margin-top: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s, background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #16a34a;
+        }
+
+        /* Cart Sidebar Drawer */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 380px;
+            height: 100%;
+            background-color: var(--card-bg);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.75rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: left;
+            margin-top: 4px;
+            width: max-content;
+        }
+
+        /* Checkout Form Fields Style */
+        .checkout-form {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkout-form h4 {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .cart-total {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.5rem 3%;
+            }
+            .logo-img {
+                height: 45px;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 3rem 5%;
+                gap: 2rem;
+            }
+            .hero-content {
+                margin-bottom: 0;
+            }
+            .search-row {
+                flex-direction: column;
+            }
+            nav a {
+                margin-left: 1rem;
+            }
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container">
+            <img src="WhatsApp Image 2026-07-28 at 22.41.53.jpeg" alt="Aditya Bearing Logo" class="logo-img"> 
+        </a>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#shop">Shop</a>
+            <div class="cart-icon-container" onclick="toggleCart()">
+                <strong>🛒 Cart</strong>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Brand Inventory</h1>
+            <p>Authorized industrial-grade components at wholesale price rates.</p>
+            <a href="#shop" class="btn">Explore Inventory</a>
+        </div>
+        <div class="hero-image">
+            <div style="width: 450px; height: 350px; background-color: white; border-radius: 10%; display: flex; align-items: center; justify-content: center; box-shadow:  10px 25px rgba(0,0,0,0.05); padding: 1.5rem;">
+                <img src="image_c445ec20.jpg" alt="Featured Component" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+        </div>
+    </section>
+
+    <div class="controls-container" id="shop">
+        <div class="search-row">
+            <input type="text" id="search-input" class="search-bar" placeholder="Search bearing item number (e.g., 32213, 6201)..." oninput="filterProducts()">
+            <select id="brand-select" class="brand-select" onchange="filterProducts()">
+                <option value="all">All Brands</option>
+                <option value="ADITYA">ADITYA</option>
+            </select>
+        </div>
+        
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterCategory('all', this)">All Categories</button>
+            <button class="tab-btn" onclick="filterCategory('Taper Roller Bearing', this)">Taper Roller Bearings</button>
+            <button class="tab-btn" onclick="filterCategory('Ball Bearing', this)">Ball Bearings</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <h2 class="section-title">Our Distribution Range</h2>
+        <div class="product-grid" id="product-grid-container"></div>
+    </main>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        
+        <div class="cart-items" id="cart-items-list">
+            <p style="color: #94a3b8; text-align: center; margin-top: 2rem;">Your cart is empty</p>
+        </div>
+
+        <div class="checkout-form" id="checkout-form-container" style="display: none;">
+            <h4>Buyer & Logistics Details</h4>
+            <div class="form-group">
+                <label for="cust-name">Full Name / Shop Name *</label>
+                <input type="text" id="cust-name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="cust-phone">WhatsApp Contact Number *</label>
+                <input type="tel" id="cust-phone" placeholder="e.g. +91 0000000000">
+            </div>
+            <div class="form-group">
+                <label for="cust-address">Shipping Address *</label>
+                <textarea id="cust-address" rows="2" placeholder="Complete destination address details"></textarea>
+            </div>
+        </div>
+
+        <div class="cart-total">
+            <span>Total Value:</span>
+            <span id="cart-total-price">Rs. 0.00</span>
+        </div>
+        
+        <button class="btn btn-success" style="width: 100%; border-radius: 8px; font-size: 1.1rem; padding: 0.75rem;" onclick="processCheckout()">
+            💬 Send Order via WhatsApp
+        </button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Aditya Traders E-Commerce.<br>For Contact Support: 9860904286, 9422879139 | Mail: adeshpande720@gmail.com</p>
+    </footer>
+
+<script>
+    const coreBearings = [
+        // Taper Roller Bearings
+        { code: "30203", price: 193, type: "Taper Roller Bearing" },
+        { code: "30204", price: 207, type: "Taper Roller Bearing" },
+        { code: "30205", price: 221, type: "Taper Roller Bearing" },
+        { code: "30206", price: 252, type: "Taper Roller Bearing" },
+        { code: "30207", price: 321, type: "Taper Roller Bearing" },
+        { code: "30208", price: 369, type: "Taper Roller Bearing" },
+        { code: "30209", price: 401, type: "Taper Roller Bearing" },
+        { code: "30210", price: 441, type: "Taper Roller Bearing" },
+        { code: "30211", price: 510, type: "Taper Roller Bearing" },
+        { code: "30212", price: 605, type: "Taper Roller Bearing" },
+        { code: "30213", price: 720, type: "Taper Roller Bearing" },
+        { code: "30214", price: 764, type: "Taper Roller Bearing" },
+        { code: "30215", price: 837, type: "Taper Roller Bearing" },
+        { code: "30216", price: 986, type: "Taper Roller Bearing" },
+        { code: "30302", price: 190, type: "Taper Roller Bearing" },
+        { code: "30304", price: 255, type: "Taper Roller Bearing" },
+        { code: "30305", price: 283, type: "Taper Roller Bearing" },
+        { code: "30306", price: 331, type: "Taper Roller Bearing" },
+        { code: "30307", price: 403, type: "Taper Roller Bearing" },
+        { code: "30308", price: 501, type: "Taper Roller Bearing" },
+        { code: "30309", price: 638, type: "Taper Roller Bearing" },
+        { code: "30310", price: 750, type: "Taper Roller Bearing" },
+        { code: "30311", price: 888, type: "Taper Roller Bearing" },
+        { code: "30312", price: 1042, type: "Taper Roller Bearing" },
+        { code: "31305", price: 381, type: "Taper Roller Bearing" },
+        { code: "31309", price: 801, type: "Taper Roller Bearing" },
+        { code: "31312L", price: 1201, type: "Taper Roller Bearing" },
+        { code: "31594", price: 591, type: "Taper Roller Bearing" },
+        { code: "32005", price: 246, type: "Taper Roller Bearing" },
+        { code: "32006", price: 277, type: "Taper Roller Bearing" },
+        { code: "32007", price: 333, type: "Taper Roller Bearing" },
+        { code: "32008", price: 392, type: "Taper Roller Bearing" },
+        { code: "32009", price: 431, type: "Taper Roller Bearing" },
+        { code: "32010", price: 479, type: "Taper Roller Bearing" },
+        { code: "32011", price: 540, type: "Taper Roller Bearing" },
+        { code: "32012", price: 664, type: "Taper Roller Bearing" },
+        { code: "32013", price: 703, type: "Taper Roller Bearing" },
+        { code: "32014", price: 795, type: "Taper Roller Bearing" },
+        { code: "32015", price: 893, type: "Taper Roller Bearing" },
+        { code: "32016", price: 1008, type: "Taper Roller Bearing" },
+        { code: "32020", price: 1358, type: "Taper Roller Bearing" },
+        { code: "32206", price: 299, type: "Taper Roller Bearing" },
+        { code: "32207", price: 360, type: "Taper Roller Bearing" },
+        { code: "32208", price: 441, type: "Taper Roller Bearing" },
+        { code: "32209", price: 499, type: "Taper Roller Bearing" },
+        { code: "32210", price: 538, type: "Taper Roller Bearing" },
+        { code: "32211", price: 585, type: "Taper Roller Bearing" },
+        { code: "32212", price: 690, type: "Taper Roller Bearing" },
+        { code: "32213 Trolley", price: 800, type: "Taper Roller Bearing" },
+        { code: "32214", price: 909, type: "Taper Roller Bearing" },
+        { code: "32215", price: 949, type: "Taper Roller Bearing" },
+        { code: "32216 Trolley", price: 1040, type: "Taper Roller Bearing" },
+        { code: "32217", price: 1406, type: "Taper Roller Bearing" },
+        { code: "32218", price: 1700, type: "Taper Roller Bearing" },
+        { code: "32219", price: 2304, type: "Taper Roller Bearing" },
+        { code: "32220", price: 2556, type: "Taper Roller Bearing" },
+        { code: "32222", price: 3727, type: "Taper Roller Bearing" },
+        { code: "32306", price: 479, type: "Taper Roller Bearing" },
+        { code: "32307", price: 496, type: "Taper Roller Bearing" },
+        { code: "32308", price: 641, type: "Taper Roller Bearing" },
+        { code: "32309", price: 1210, type: "Taper Roller Bearing" },
+        { code: "32310", price: 1103, type: "Taper Roller Bearing" },
+        { code: "32311", price: 1403, type: "Taper Roller Bearing" },
+        { code: "32312", price: 1781, type: "Taper Roller Bearing" },
+        { code: "33010", price: 582, type: "Taper Roller Bearing" },
+        { code: "33011", price: 650, type: "Taper Roller Bearing" },
+        { code: "33012", price: 1016, type: "Taper Roller Bearing" },
+        { code: "33013", price: 1044, type: "Taper Roller Bearing" },
+        { code: "33015", price: 1072, type: "Taper Roller Bearing" },
+        { code: "33019", price: 1210, type: "Taper Roller Bearing" },
+        { code: "33111", price: 582, type: "Taper Roller Bearing" },
+        { code: "33112", price: 818, type: "Taper Roller Bearing" },
+        { code: "33207", price: 532, type: "Taper Roller Bearing" },
+        { code: "33209", price: 700, type: "Taper Roller Bearing" },
+        { code: "33210", price: 750, type: "Taper Roller Bearing" },
+        { code: "33211", price: 882, type: "Taper Roller Bearing" },
+        { code: "33213", price: 1226, type: "Taper Roller Bearing" },
+        { code: "33215", price: 1397, type: "Taper Roller Bearing" },
+        { code: "3780/20", price: 563, type: "Taper Roller Bearing" },
+        { code: "3782/20", price: 633, type: "Taper Roller Bearing" },
+        { code: "50-KW", price: 633, type: "Taper Roller Bearing" },
+        { code: "3982/20", price: 781, type: "Taper Roller Bearing" },
+        { code: "3984/3920 Trolley", price: 732, type: "Taper Roller Bearing" },
+        { code: "320/332X", price: 282, type: "Taper Roller Bearing" },
+        { code: "368/362", price: 580, type: "Taper Roller Bearing" },
+        { code: "369/362", price: 610, type: "Taper Roller Bearing" },
+        { code: "387/20", price: 672, type: "Taper Roller Bearing" },
+        { code: "387/82", price: 697, type: "Taper Roller Bearing" },
+        { code: "37425/625", price: 1243, type: "Taper Roller Bearing" },
+        { code: "37431/625", price: 1274, type: "Taper Roller Bearing" },
+        { code: "414/418", price: 636, type: "Taper Roller Bearing" },
+        { code: "462/453 Trolley", price: 700, type: "Taper Roller Bearing" },
+        { code: "482/472", price: 840, type: "Taper Roller Bearing" },
+        { code: "47487/20", price: 941, type: "Taper Roller Bearing" },
+        { code: "48548/10", price: 320, type: "Taper Roller Bearing" },
+        { code: "535/532", price: 935, type: "Taper Roller Bearing" },
+        { code: "539/532", price: 851, type: "Taper Roller Bearing" },
+        { code: "565/562", price: 1047, type: "Taper Roller Bearing" },
+        { code: "566/563", price: 1047, type: "Taper Roller Bearing" },
+        { code: "580/572", price: 1140, type: "Taper Roller Bearing" },
+        { code: "509043", price: 263, type: "Taper Roller Bearing" },
+        { code: "501349/10", price: 370, type: "Taper Roller Bearing" },
+        { code: "501349/14", price: 399, type: "Taper Roller Bearing" },
+        { code: "518445", price: 1506, type: "Taper Roller Bearing" },
+        { code: "603049/11", price: 413, type: "Taper Roller Bearing" },
+        { code: "67048", price: 273, type: "Taper Roller Bearing" },
+        { code: "683/672", price: 1761, type: "Taper Roller Bearing" },
+        { code: "6379/20", price: 1842, type: "Taper Roller Bearing" },
+        { code: "72212", price: 1165, type: "Taper Roller Bearing" },
+        { code: "801346", price: 832, type: "Taper Roller Bearing" },
+        { code: "803146/12", price: 857, type: "Taper Roller Bearing" },
+        { code: "804846/10", price: 949, type: "Taper Roller Bearing" },
+        { code: "84548/10", price: 361, type: "Taper Roller Bearing" },
+        { code: "86649/10", price: 487, type: "Taper Roller Bearing" },
+        { code: "903249/10", price: 748, type: "Taper Roller Bearing" },
+        { code: "09067/9195", price: 262, type: "Taper Roller Bearing" },
+        { code: "11590/20", price: 233, type: "Taper Roller Bearing" },
+        { code: "11949/10", price: 237, type: "Taper Roller Bearing" },
+        { code: "1988/22", price: 300, type: "Taper Roller Bearing" },
+        { code: "12649/10", price: 235, type: "Taper Roller Bearing" },
+        { code: "15123/245", price: 272, type: "Taper Roller Bearing" },
+        { code: "24780/20", price: 411, type: "Taper Roller Bearing" },
+        { code: "25877/21", price: 424, type: "Taper Roller Bearing" },
+        { code: "12303", price: 249, type: "Taper Roller Bearing" },
+        { code: "12435", price: 364, type: "Taper Roller Bearing" },
+        { code: "14131", price: 350, type: "Taper Roller Bearing" },
+        { code: "218248", price: 1403, type: "Taper Roller Bearing" },
+        { code: "32917", price: 812, type: "Taper Roller Bearing" },
+        { code: "25577/23", price: 504, type: "Taper Roller Bearing" },
+        { code: "212049", price: 1330, type: "Taper Roller Bearing" },
+        { code: "33212 (Taper)", price: 1081, type: "Taper Roller Bearing" },
+
+        // Ball Bearings
+        { code: "6201", price: 100, type: "Ball Bearing" },
+        { code: "6201 Z", price: 105, type: "Ball Bearing" },
+        { code: "6201 ZZ", price: 110, type: "Ball Bearing" },
+        { code: "6202", price: 105, type: "Ball Bearing" },
+        { code: "6202 Z", price: 105, type: "Ball Bearing" },
+        { code: "6202 ZZ", price: 115, type: "Ball Bearing" },
+        { code: "6203", price: 105, type: "Ball Bearing" },
+        { code: "6203 Z", price: 115, type: "Ball Bearing" },
+        { code: "6203 ZZ", price: 130, type: "Ball Bearing" },
+        { code: "6204", price: 145, type: "Ball Bearing" },
+        { code: "6204 Z", price: 165, type: "Ball Bearing" },
+        { code: "6204 ZZ", price: 185, type: "Ball Bearing" },
+        { code: "6205", price: 170, type: "Ball Bearing" },
+        { code: "6205 Z", price: 175, type: "Ball Bearing" },
+        { code: "6205 ZZ", price: 185, type: "Ball Bearing" },
+        { code: "6206", price: 210, type: "Ball Bearing" },
+        { code: "6206 Z", price: 220, type: "Ball Bearing" },
+        { code: "6206 ZZ", price: 235, type: "Ball Bearing" },
+        { code: "6207", price: 285, type: "Ball Bearing" },
+        { code: "6207 Z", price: 295, type: "Ball Bearing" },
+        { code: "6207 ZZ", price: 310, type: "Ball Bearing" },
+        { code: "6207 WOS", price: 425, type: "Ball Bearing" },
+        { code: "6208", price: 310, type: "Ball Bearing" },
+        { code: "6208 N", price: 340, type: "Ball Bearing" },
+        { code: "6208 Z", price: 330, type: "Ball Bearing" },
+        { code: "6208 ZZ", price: 345, type: "Ball Bearing" },
+        { code: "6208 WOS", price: 437, type: "Ball Bearing" },
+        { code: "6209", price: 395, type: "Ball Bearing" },
+        { code: "6209 ZZ", price: 437, type: "Ball Bearing" },
+        { code: "6210", price: 425, type: "Ball Bearing" },
+        { code: "6210 ZZ", price: 460, type: "Ball Bearing" },
+        { code: "6211", price: 515, type: "Ball Bearing" },
+        { code: "6211 ZZ", price: 590, type: "Ball Bearing" },
+        { code: "6211 WOS", price: 1125, type: "Ball Bearing" },
+        { code: "6212", price: 635, type: "Ball Bearing" },
+        { code: "6212 ZZ", price: 710, type: "Ball Bearing" },
+        { code: "6213", price: 745, type: "Ball Bearing" },
+        { code: "6214", price: 905, type: "Ball Bearing" },
+        { code: "6215", price: 985, type: "Ball Bearing" },
+        { code: "6216", price: 1185, type: "Ball Bearing" },
+        { code: "6301", price: 105, type: "Ball Bearing" },
+        { code: "6301 Z", price: 115, type: "Ball Bearing" },
+        { code: "6301 ZZ", price: 130, type: "Ball Bearing" },
+        { code: "6302", price: 135, type: "Ball Bearing" },
+        { code: "6302 Z", price: 145, type: "Ball Bearing" },
+        { code: "6302 ZZ", price: 155, type: "Ball Bearing" },
+        { code: "6303", price: 155, type: "Ball Bearing" },
+        { code: "6303 Z", price: 170, type: "Ball Bearing" },
+        { code: "6303 ZZ", price: 175, type: "Ball Bearing" },
+        { code: "6304", price: 175, type: "Ball Bearing" },
+        { code: "6304 Z", price: 180, type: "Ball Bearing" },
+        { code: "6304 ZZ", price: 210, type: "Ball Bearing" },
+        { code: "6305", price: 210, type: "Ball Bearing" },
+        { code: "6305 Z", price: 235, type: "Ball Bearing" },
+        { code: "6305 ZZ", price: 260, type: "Ball Bearing" },
+        { code: "6306", price: 310, type: "Ball Bearing" },
+        { code: "6306 ZZ", price: 365, type: "Ball Bearing" },
+        { code: "6307", price: 375, type: "Ball Bearing" },
+        { code: "6307 ZZ", price: 435, type: "Ball Bearing" },
+        { code: "6308", price: 500, type: "Ball Bearing" },
+        { code: "6308 ZN", price: 535, type: "Ball Bearing" },
+        { code: "6308 ZZ", price: 560, type: "Ball Bearing" },
+        { code: "6309", price: 640, type: "Ball Bearing" },
+        { code: "6309 N", price: 685, type: "Ball Bearing" },
+        { code: "6309 ZZ", price: 710, type: "Ball Bearing" },
+        { code: "6310", price: 795, type: "Ball Bearing" },
+        { code: "6310 ZZ", price: 895, type: "Ball Bearing" },
+        { code: "6311", price: 980, type: "Ball Bearing" },
+        { code: "6311 ZZ", price: 1090, type: "Ball Bearing" },
+        { code: "6312", price: 1240, type: "Ball Bearing" },
+        { code: "6312 ZZ", price: 1345, type: "Ball Bearing" },
+        { code: "6313", price: 1485, type: "Ball Bearing" },
+        { code: "6313 ZZ", price: 1610, type: "Ball Bearing" },
+        { code: "6314", price: 1900, type: "Ball Bearing" },
+        { code: "6315", price: 2060, type: "Ball Bearing" },
+        { code: "LS-8", price: 190, type: "Ball Bearing" },
+        { code: "LS-9", price: 220, type: "Ball Bearing" },
+        { code: "LS-10", price: 265, type: "Ball Bearing" },
+        { code: "LS-11", price: 290, type: "Ball Bearing" },
+        { code: "LS-11 K", price: 300, type: "Ball Bearing" },
+        { code: "LS-12", price: 380, type: "Ball Bearing" },
+        { code: "LS-12 K", price: 400, type: "Ball Bearing" },
+        { code: "LS-13", price: 435, type: "Ball Bearing" },
+        { code: "MS-9", price: 295, type: "Ball Bearing" },
+        { code: "MS-10", price: 360, type: "Ball Bearing" },
+        { code: "MS-11", price: 420, type: "Ball Bearing" },
+        { code: "MS-12", price: 465, type: "Ball Bearing" },
+        { code: "6007", price: 215, type: "Ball Bearing" },
+        { code: "6008", price: 235, type: "Ball Bearing" },
+        { code: "6010", price: 295, type: "Ball Bearing" },
+        { code: "6010 ZZ", price: 365, type: "Ball Bearing" },
+        { code: "6011", price: 380, type: "Ball Bearing" },
+        { code: "6011 WOS", price: 980, type: "Ball Bearing" },
+        { code: "6012", price: 415, type: "Ball Bearing" },
+        { code: "6013", price: 480, type: "Ball Bearing" },
+        { code: "6013 WOS", price: 1260, type: "Ball Bearing" },
+        { code: "6014", price: 565, type: "Ball Bearing" },
+        { code: "6015", price: 605, type: "Ball Bearing" },
+        { code: "50 KW (Ball)", price: 615, type: "Ball Bearing" },
+        { code: "CFM-10 ST.", price: 515, type: "Ball Bearing" },
+        { code: "CFM-10 BR", price: 605, type: "Ball Bearing" },
+        { code: "1888451", price: 635, type: "Ball Bearing" },
+        { code: "1888180", price: 655, type: "Ball Bearing" },
+        { code: "LO 64", price: 400, type: "Ball Bearing" },
+        { code: "NU-209", price: 630, type: "Ball Bearing" },
+        { code: "NU-2209", price: 640, type: "Ball Bearing" },
+        { code: "NU-307", price: 630, type: "Ball Bearing" },
+        { code: "NU-309 ST", price: 630, type: "Ball Bearing" },
+        { code: "NJ-305 ST", price: 354, type: "Ball Bearing" },
+        { code: "NJ-305 BR", price: 400, type: "Ball Bearing" }
+    ];
+
+    const brandsList = ["ADITYA"];
+    const productsDatabase = [];
+
+    brandsList.forEach(brand => {
+        coreBearings.forEach(bearing => {
+            productsDatabase.push({
+                name: `${brand} ${bearing.code} Bearing`,
+                price: bearing.price,
+                type: bearing.type,
+                brand: brand
+            });
+        });
+    });
+
+    let cart = [];
+    let currentCategory = 'all';
+
+    function displayProducts(products) {
+        const gridContainer = document.getElementById('product-grid-container');
+        
+        if (products.length === 0) {
+            gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 3rem 0;">No bearings found matching your filter selection.</p>`;
+            return;
+        }
+
+        gridContainer.innerHTML = products.map(product => `
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="brand-badge">${product.brand}</span>
+                    <img src="image_c445ec20.jpg" alt="${product.name}" class="product-item-img">
+                    <span class="bearing-tag">${product.type}</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-price">Rs. ${product.price}.00</div>
+                    <button class="btn" onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function filterProducts() {
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const selectedBrand = document.getElementById('brand-select').value;
+
+        const filtered = productsDatabase.filter(product => {
+            const matchesSearch = product.name.toLowerCase().includes(query);
+            const matchesBrand = (selectedBrand === 'all' || product.brand === selectedBrand);
+            const matchesCategory = (currentCategory === 'all' || product.type === currentCategory);
+
+            return matchesSearch && matchesBrand && matchesCategory;
+        });
+
+        displayProducts(filtered);
+    }
+
+    function filterCategory(category, buttonElement) {
+        currentCategory = category;
+
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        buttonElement.classList.add('active');
+
+        filterProducts();
+    }
+
+    function toggleCart() {
+        const sidebar = document.getElementById('cart-sidebar');
+        sidebar.classList.toggle('open');
+    }
+
+    function addToCart(name, price) {
+        const existingItem = cart.find(item => item.name === name);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name: name, price: price, quantity: 1 });
+        }
+
+        updateCartUI();
+        
+        const sidebar = document.getElementById('cart-sidebar');
+        if (!sidebar.classList.contains('open')) {
+            sidebar.classList.add('open');
+        }
+    }
+
+    function removeFromCart(name) {
+        cart = cart.filter(item => item.name !== name);
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const cartCountBadge = document.getElementById('cart-count');
+        const cartListContainer = document.getElementById('cart-items-list');
+        const cartTotalSpan = document.getElementById('cart-total-price');
+        const formContainer = document.getElementById('checkout-form-container');
+
+        let totalItems = 0;
+        let totalPrice = 0;
+
+        if (cart.length === 0) {
+            cartListContainer.innerHTML = `<p style="color: #94a3b8; text-align: center; margin-top: 2rem;">Your cart is empty</p>`;
+            formContainer.style.display = 'none';
+        } else {
+            formContainer.style.display = 'flex';
+            cartListContainer.innerHTML = cart.map(item => {
+                totalItems += item.quantity;
+                totalPrice += (item.price * item.quantity);
+
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <strong>${item.name}</strong>
+                            <span style="font-size: 0.85rem; color: #64748b;">Rs. ${item.price} × ${item.quantity}</span>
+                            <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">Remove</button>
+                        </div>
+                        <div style="font-weight: 600;">Rs. ${item.price * item.quantity}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        cartCountBadge.textContent = totalItems;
+        cartTotalSpan.textContent = `Rs. ${totalPrice}.00`;
+    }
+
+    /* Process Order Checkout System Logic Execution Function */
+    function processCheckout() {
+        if (cart.length === 0) {
+            alert("Your shopping cart is completely empty! Please add a bearing item first.");
+            return;
+        }
+
+        // Fetch log form inputs
+        const buyerName = document.getElementById('cust-name').value.trim();
+        const buyerPhone = document.getElementById('cust-phone').value.trim();
+        const buyerAddress = document.getElementById('cust-address').value.trim();
+
+        // Validation check
+        if (!buyerName || !buyerPhone || !buyerAddress) {
+            alert("Please accurately fill out all logistical contact fields before dispatching order.");
+            return;
+        }
+
+        // WhatsApp dispatch configuration setup phone (Aditya Traders Business Line contact)
+        const targetBusinessPhone = "9422179955"; 
+
+        // Compile ordered products content loop details string
+        let messageText = `*📦 NEW BEARING ORDER - ADITYA TRADERS*\n`;
+        messageText += `-------------------------------------------\n`;
+        messageText += `*👤 Buyer Name/Shop:* ${buyerName}\n`;
+        messageText += `*📞 Phone Contact:* ${buyerPhone}\n`;
+        messageText += `*📍 Delivery Address:* ${buyerAddress}\n`;
+        messageText += `-------------------------------------------\n`;
+        messageText += `*📋 ORDER ITEMS INVENTORY:* \n\n`;
+
+        let totalCartValue = 0;
+        cart.forEach((item, index) => {
+            const rowSubtotal = item.price * item.quantity;
+            totalCartValue += rowSubtotal;
+            messageText += `${index + 1}. *${item.name}*\n`;
+            messageText += `   Qty: ${item.quantity} pc(s) × Rs. ${item.price} = *Rs. ${rowSubtotal}*\n\n`;
+        });
+
+        messageText += `-------------------------------------------\n`;
+        messageText += `*💰 TOTAL BILL INVOICE RATE:* Rs. ${totalCartValue}.00\n`;
+        messageText += `-------------------------------------------\n`;
+        messageText += `_Please confirm availability and dispatch terms._`;
+
+        // URL encode the text safely
+        const encodedMessage = encodeURIComponent(messageText);
+        
+        // Build the dynamic api anchor string links
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetBusinessPhone}&text=${encodedMessage}`;
+
+        // Direct browser action system forward window launch
+        window.open(whatsappUrl, '_blank');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        displayProducts(productsDatabase);
+    });
+</script>
+</body>
+</html>
